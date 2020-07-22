@@ -87,4 +87,19 @@ class UsersController extends Controller
         ]);
     }
     
+    // ユーザーが追加したお気に入りを一覧表示
+    public function favorites($id)
+    {
+        // idの値でユーザを検索して取得
+        $user = User::findOrFail($id);
+        
+        // お気に入りの一覧を取得
+        $favorites = $user->favorites()->paginate(10);
+        
+        return view('users.favorites', [
+            'user' => $user,
+            'favorites' => $favorites,
+        ]);
+    }
+    
 }
